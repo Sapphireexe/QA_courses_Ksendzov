@@ -165,14 +165,62 @@ string 13 *`(Enter)`*
  **36.** Команда в одну строку. Переместить в любую одну папку текстовые файлы у которых в содержимом есть слово “*sec*”
 >\$ mv -v \$(grep -wl "sec" \$(find . -iname "*.txt")) ./inner_dir_2
 
+*либо*
+
+>$ find . -iname "*.txt" | xargs grep -wl "sec" | xargs mv -t "./inner_dir_2"
+
+*либо*
+
+>$ find . -iname "*.txt" | xargs grep -wl "sec" | xargs -I @ mv @ "./inner_dir_2"
+
+*либо*
+
+>$ (find . -iname "*.txt" | xargs grep -wl "sec"; echo "./inner_dir_2" ) | xargs mv
+
+*либо*
+
+>$ find . -iname "*.txt" -exec grep -wl "sec" {} + | xargs mv -t ./inner_dir_2
+
  **37.** Команда в одну строку. Скопировать в любую одну папку текстовые файлы у которых в содержимом есть слово “*sec*”
 >\$ cp -v \$(grep -wl "sec" \$(find . -iname "*.txt")) .
+
+*либо*
+
+>$ find . -iname "*.txt" | xargs grep -wl "sec" | xargs cp -t .
+
+*либо*
+
+>$ find . -iname "*.txt" | xargs grep -wl "sec" | xargs -I @ cp @ .
+
+*либо*
+
+>$ (find . -iname "*.txt" | xargs grep -wl "sec"; echo . ) | xargs cp
+
+*либо*
+
+>$ find . -iname "*.txt" -exec grep -wl "sec" {} + | xargs -I 123 cp 123 .
 
  **38.** Команда в одну строку. Найти все строки c “*sec*” во всех текстовых файлах, скопировать и вставить эти строки в один новый созданный текстовый файл.
 >\$ grep -h "sec" \$(find . -iname "*.txt") > tf_7.txt
 
+*либо*
+
+>$ find . -iname "*.txt" -exec grep -h --exclude=tf_7.txt "sec" {} + > tf_7.txt
+
+*либо*
+
+>$ find . -iname "*.txt" | xargs grep -h --exclude=tf_7.txt "sec" > tf_7.txt
+
+*либо*
+
+>$ find . -iname "*.txt" | xargs grep -h --exclude=tf_7.txt "sec" | cat > tf_7.txt
+
  **39.** Команда в одну строку. Удалить текстовые файлы у которых в содержимом есть слово “*sec*”
 >\$ rm \$(grep -l "sec" \$(find . -iname "*.txt"))
+
+*либо*
+
+>$ find . -iname "*.txt" | xargs grep -wl "sec" | xargs rm
 
  **40.** Просто вывести в терминал строку “*Good job!!*”
 >$ echo 'Good job!!'
