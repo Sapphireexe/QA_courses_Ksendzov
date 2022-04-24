@@ -146,5 +146,4 @@ function checkAge4(age) {
     }
 }
 
-let arg = prompt('Input your age: ', [18]);
-checkAge4(arg);
+checkAge4(prompt('Input your age: ', [18]));
