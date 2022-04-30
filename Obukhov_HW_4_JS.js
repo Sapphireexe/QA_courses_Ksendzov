@@ -18,18 +18,68 @@ let validStr = 'Input from 5 to 64 symbols';
 console.log(vLength(validStr));
 
 function vLength() {
-    if (validStr.length > 4 && validStr.length < 65) {
+    if (validStr.trim().length >= 5 && validStr.trim().length <= 64 && validStr.trim().length == validStr.length) {
         return vContent(validStr);
     }
-    else if (validStr.length > 0 && validStr.length < 5 || validStr.length > 64) {
-        return 'Length is wrong: ' + validStr.length + '. ' + vContent(validStr);
+    else if (validStr.trim().length >= 5 && validStr.trim().length <= 64 && validStr.trim().length < validStr.length) {
+      return 'Обнаружены пробелы в начале и/или в конце строки: ' + (validStr.length-validStr.trim().length) + ' пробел(а)(ов). ' + vContent(validStr);
+    }
+    else if (validStr.trim().length > 0 && validStr.trim().length < 5 && validStr.trim().length == validStr.length || validStr.trim().length > 64 && validStr.trim().length == validStr.length) {
+        return 'Недопустимая длина: ' + validStr.length + ' символ(а)(ов). ' + vContent(validStr);
+    }
+    else if (validStr.trim().length > 0 && validStr.trim().length < 5 && validStr.trim().length < validStr.length || validStr.trim().length > 64 && validStr.trim().length < validStr.length) {
+        return 'Недопустимая длина: ' + validStr.trim().length + ' символ(а)(ов), также обнаружены пробелы в начале и/или в конце строки: ' + (validStr.length-validStr.trim().length) + ' пробел(а)(ов). ' + vContent(validStr);
+    }
+    else if (validStr.trim().length == 0 && validStr.length != 0) {
+        return 'Не обнаружены символы, кроме пробелов: ' + validStr.length + ' пробел(а)(ов).';
     }
     else {
-        return 'You didn\'t input anything.';
-        //BREAK!!!!!!!!!!!!!!!!!
+        return 'Пустая строка.';
     }
 }
 
+
 function vContent() {
-    
+    if (/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])(?=.*@)[A-ZА-ЯЁa-zа-яё0-9@]+$/.test(validStr)) {
+        return 'Корректно введённая строка: ' + validStr;
+    }
+    else {
+        return vContent1(validStr);
+    }
+}
+
+function vContent1() {
+    if (!(/^(?=.*[A-ZА-ЯЁ])[\w\W\s\S\d\D]+$/.test(validStr))) {
+        return 'Не найдена ни одна прописная буква. ' + vContent2(validStr);
+    }
+    else {
+        return vContent2(validStr);
+    }
+}
+
+function vContent2() {
+    if (!(/^(?=.*[0-9])[\w\W\s\S\d\D]+$/.test(validStr))) {
+        return 'Не найдена ни одна цифра. ' + vContent3(validStr);
+    }
+    else {
+        return vContent3(validStr);
+    }
+}
+
+function vContent3() {
+    if (!(/^(?=.*@)[\w\W\s\S\d\D]+$/.test(validStr))) {
+        return 'Не найден ни один @ (at). ' + vContent4(validStr);
+    }
+    else {
+        return vContent4(validStr);
+    }
+}
+
+function vContent4() {
+    if (!(/^[A-ZА-ЯЁa-zа-яё0-9@]+$/.test(validStr))) {
+        return 'Обнаружены недопустимые символы, кроме букв, цифр и @ (at): ' + validStr;
+    }
+    else {
+        return '';
+    }
 }
