@@ -13,7 +13,7 @@
 //  9. Строка не должна быть пустой
 
 //let validstr = prompt('Input from 5 to 64 symbols. Should include at least one uppercase letter, one number and one @');
-let validStr = 'Input from 5 to 64 symbols';
+let validStr = 'Input from 5 to 64 symbols##';
 
 console.log(vLength(validStr));
 
@@ -49,7 +49,7 @@ function vContent() {
 }
 
 function vContent1() {
-    if (!(/^(?=.*[A-ZА-ЯЁ])[\w\W\s\S\d\D]+$/.test(validStr))) { // проверяю, что не была введена ни одна заглавная буква
+    if (!(/^(?=.*[A-ZА-ЯЁ])[\w\W]+$/.test(validStr))) { // проверяю, что не была введена ни одна заглавная буква
         return 'Не найдена ни одна прописная буква. ' + vContent2(validStr);
     }
     else {
@@ -58,7 +58,7 @@ function vContent1() {
 }
 
 function vContent2() {
-    if (!(/^(?=.*[0-9])[\w\W\s\S\d\D]+$/.test(validStr))) { // проверяю, что не была введена ни одна цифра
+    if (!(/^(?=.*[0-9])[\w\W]+$/.test(validStr))) { // проверяю, что не была введена ни одна цифра
         return 'Не найдена ни одна цифра. ' + vContent3(validStr);
     }
     else {
@@ -67,7 +67,7 @@ function vContent2() {
 }
 
 function vContent3() {
-    if (!(/^(?=.*@)[\w\W\s\S\d\D]+$/.test(validStr))) { // проверяю, что не был введён ни один символ @
+    if (!(/^(?=.*@)[\w\W]+$/.test(validStr))) { // проверяю, что не был введён ни один символ @
         return 'Не найден ни один @ (at). ' + vContent4(validStr);
     }
     else {
@@ -77,9 +77,10 @@ function vContent3() {
 
 function vContent4() {
     if (!(/^[A-ZА-ЯЁa-zа-яё0-9@]+$/.test(validStr))) { // проверяю, что были какие-то посторонние символы, кроме букв, цифр и @
-        return 'Обнаружены недопустимые символы, кроме букв, цифр и @ (at): ' + validStr;
+        let result = validStr.split(/[A-ZА-ЯЁa-zа-яё0-9@]*/);
+        return 'Обнаружены недопустимые символы, кроме букв, цифр и @ (at): ' + result;
     }
     else {
-        return '';
+        return '111222333';
     }
 }
