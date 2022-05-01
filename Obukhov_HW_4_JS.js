@@ -13,35 +13,35 @@
 //  9. Строка не должна быть пустой
 
 //let validstr = prompt('Input from 5 to 64 symbols. Should include at least one uppercase letter, one number and one @');
-let validStr = 'Input from 5 to 64 symbols##';
+let validStr = 'Input from 5 to 64 symbols. Should include at least one uppercase letter, one number and one @';
 
 console.log(vLength(validStr));
 
 function vLength() {
-    if (validStr.trim().length >= 5 && validStr.trim().length <= 64 && validStr.trim().length == validStr.length) { // проверяю, что длина от 5 до 64 символов, и при этом нет пробелов в начале/конце строки
+    if (validStr.trim().length >= 5 && validStr.trim().length <= 64 && validStr.trim().length == validStr.length) { // check for length from 5 to 64 symbols with no spaces at string begin/end
         return vContent(validStr);
     }
-    else if (validStr.trim().length >= 5 && validStr.trim().length <= 64 && validStr.trim().length < validStr.length) { // проверяю, что длина от 5 до 64 символов, и при этом в начале/конце строки есть пробелы
-      return 'Обнаружены пробелы в начале и/или в конце строки: ' + (validStr.length-validStr.trim().length) + ' пробел(а)(ов). ' + vContent(validStr);
+    else if (validStr.trim().length >= 5 && validStr.trim().length <= 64 && validStr.trim().length < validStr.length) { // check for length from 5 to 64 symbols, also contains spaces at string begin/end
+      return 'Spaces at string begin and (or) end were detected: ' + (validStr.length-validStr.trim().length) + ' space(s). ' + vContent(validStr);
     }
-    else if (validStr.trim().length > 0 && validStr.trim().length < 5 && validStr.trim().length == validStr.length || validStr.trim().length > 64 && validStr.trim().length == validStr.length) { // проверяю, что длина меньше 5 или больше 64 символов, и при этом пробелов в начале/конце строки нет
-        return 'Недопустимая длина: ' + validStr.length + ' символ(а)(ов). ' + vContent(validStr);
+    else if (validStr.trim().length > 0 && validStr.trim().length < 5 && validStr.trim().length == validStr.length || validStr.trim().length > 64 && validStr.trim().length == validStr.length) { // check for length less than 5 or more than 64 symbols with no spaces at string begin/end
+        return 'Wrong length: ' + validStr.length + ' symbol(s). ' + vContent(validStr);
     }
-    else if (validStr.trim().length > 0 && validStr.trim().length < 5 && validStr.trim().length < validStr.length || validStr.trim().length > 64 && validStr.trim().length < validStr.length) { // проверяю, что длина меньше 5 или больше 64 символов, и при этом есть пробелы в начале/конце строки
-        return 'Недопустимая длина: ' + validStr.trim().length + ' символ(а)(ов), также обнаружены пробелы в начале и/или в конце строки: ' + (validStr.length-validStr.trim().length) + ' пробел(а)(ов). ' + vContent(validStr);
+    else if (validStr.trim().length > 0 && validStr.trim().length < 5 && validStr.trim().length < validStr.length || validStr.trim().length > 64 && validStr.trim().length < validStr.length) { // check for length less than 5 or more than 64 symbols, also contains spaces at string begin/end
+        return 'Wrong length: ' + validStr.trim().length + ' symbol(s), also detected spaces at string begin and (or) end: ' + (validStr.length-validStr.trim().length) + ' space(s). ' + vContent(validStr);
     }
-    else if (validStr.trim().length == 0 && validStr.length != 0) { // проверяю, что были введены только пробелы
-        return 'Не обнаружены символы, кроме пробелов: ' + validStr.length + ' пробел(а)(ов).';
+    else if (validStr.trim().length == 0 && validStr.length != 0) { // check for spaces only
+        return 'Only spaces were detected: ' + validStr.length + ' space(s).';
     }
-    else { // проверяю, что строка была просто пустой
-        return 'Пустая строка.';
+    else { // check for empty string
+        return 'Empty string.';
     }
 }
 
 
 function vContent() {
-    if (/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])(?=.*@)[A-ZА-ЯЁa-zа-яё0-9@]+$/.test(validStr)) { // проверяю, что в строке есть все условия задания
-        return 'Корректно введённая строка: ' + validStr;
+    if (/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])(?=.*@)[A-ZА-ЯЁa-zа-яё0-9@]+$/.test(validStr)) { // check for correct data
+        return 'Correct string: ' + validStr;
     }
     else {
         return vContent1(validStr);
@@ -49,8 +49,8 @@ function vContent() {
 }
 
 function vContent1() {
-    if (!(/^(?=.*[A-ZА-ЯЁ])[\w\W]+$/.test(validStr))) { // проверяю, что не была введена ни одна заглавная буква
-        return 'Не найдена ни одна прописная буква. ' + vContent2(validStr);
+    if (!(/^(?=.*[A-ZА-ЯЁ])[\w\W]+$/.test(validStr))) { // check for Uppercase
+        return 'No one uppercase was detected. ' + vContent2(validStr);
     }
     else {
         return vContent2(validStr);
@@ -58,8 +58,8 @@ function vContent1() {
 }
 
 function vContent2() {
-    if (!(/^(?=.*[0-9])[\w\W]+$/.test(validStr))) { // проверяю, что не была введена ни одна цифра
-        return 'Не найдена ни одна цифра. ' + vContent3(validStr);
+    if (!(/^(?=.*[0-9])[\w\W]+$/.test(validStr))) { // check for Number presented
+        return 'No one numeric symbol was detected. ' + vContent3(validStr);
     }
     else {
         return vContent3(validStr);
@@ -67,8 +67,8 @@ function vContent2() {
 }
 
 function vContent3() {
-    if (!(/^(?=.*@)[\w\W]+$/.test(validStr))) { // проверяю, что не был введён ни один символ @
-        return 'Не найден ни один @ (at). ' + vContent4(validStr);
+    if (!(/^(?=.*@)[\w\W]+$/.test(validStr))) { // check for @
+        return 'No one "@" was detected. ' + vContent4(validStr);
     }
     else {
         return vContent4(validStr);
@@ -76,11 +76,11 @@ function vContent3() {
 }
 
 function vContent4() {
-    if (!(/^[A-ZА-ЯЁa-zа-яё0-9@]+$/.test(validStr))) { // проверяю, что были какие-то посторонние символы, кроме букв, цифр и @
+    if (!(/^[A-ZА-ЯЁa-zа-яё0-9@]+$/.test(validStr))) { // check for invalid symbols
         let result = validStr.split(/[A-ZА-ЯЁa-zа-яё0-9@]*/);
-        return 'Обнаружены недопустимые символы, кроме букв, цифр и @ (at): ' + result;
+        return 'Invalid symbols detected: ' + result;
     }
     else {
-        return '111222333';
+        return 'Error 404: please, call Tolya Support.'; // shouldn't be true in my code, but in case I miss something, please, report me about that error and string
     }
 }
