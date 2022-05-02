@@ -13,7 +13,7 @@
 //  9. Строка не должна быть пустой
 
 //let validstr = prompt('Input from 5 to 64 symbols. Should include at least one uppercase letter, one number and one @');
-let validStr = '';
+let validStr = 'Input from 5 to 64 symbols. Should include at least one uppercase letter, one number and one @';
 
 let result = '';
 
