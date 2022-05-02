@@ -65,6 +65,6 @@ function fnumber() {
 
 function fatsymbol() {
     if (/^[^@]+$/.test(validStr)) {
-        result += 'No one "@" symbol was detected.\n';
+        result += 'No one "@" symbol was detected.';
     }
 }
